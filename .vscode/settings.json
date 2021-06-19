@@ -1,0 +1,62 @@
+{
+    "editor.rename.enablePreview": false,
+    "files.autoSave": "onFocusChange",
+    "workbench.tree.indent": 18,
+    "workbench.editor.enablePreview": false,
+    // "eslint.format.enable": true,
+    "eslint.options": {
+        "extensions": [".js", ".vue"]
+    },
+    "eslint.alwaysShowStatus": true,
+    "eslint.run": "onSave",
+
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "prettier.useEditorConfig": false,
+    "[js]": {
+        // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[ts]": {
+        // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "explorer.confirmDelete": false,
+    "vetur.format.options.useTabs": true,
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.suggest.shareSuggestSelections": true,
+    "json.schemas": [],
+    "editor.rulers": [],
+    "debug.javascript.debugByLinkOptions": null,
+    "eslint.workingDirectories": [
+        "./",
+        "./views/www/",
+        "./packages/www",
+        "./vue"
+    ],
+    "eslint.validate": [],
+    "window.zoomLevel": 0,
+    "[javascript]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "explorer.confirmDragAndDrop": false,
+    "prettier.tabWidth": 4,
+    "svgPreview.style": {},
+    "eslint.format.enable": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "beautify.ignore": "",
+    "prettier.configPath": "./prettier.config.js"
+}

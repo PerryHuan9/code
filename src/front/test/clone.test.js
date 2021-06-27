@@ -1,7 +1,8 @@
 const {
     clone,
     deepClone,
-    newObj
+    create,
+
 } = require('../clone')
 
 
@@ -36,19 +37,39 @@ test("深克隆", () => {
 })
 
 
-test("测试自己实现的new", () => {
-    function Person(name, age) {
-        this.name = name;
-        this.age = age;
-    }
-    Person.prototype.getInfo = function () {
-        return this.name + this.age;
-    }
-    const person = new Person('hello', 18);
-    const person1 = newObj(Person, 'hello', 18);
 
-    expect(person1.name).toEqual(person.name)
-    expect(person1.age).toBe(person.age)
-    expect(person1.getInfo()).toEqual(person.getInfo())
+test("测试复制循环引用", () => {
+    const a = {
+        aKey: 'aaaaa'
+    }
+    const b = {
+        bKey: 'bbbbb'
+    }
+    a.bObj = b;
+    b.aObj = a;
 
+    const obj = {
+        a,
+        b
+    };
+    const obj1 = deepClone(obj);
+
+    expect(obj1.a.bObj).toBe(obj1.b);
+    expect(obj1.b.aObj).toEqual(obj1.a);
+})
+
+
+test("测试create", () => {
+    const a = {
+        aKey: 'aaaaa',
+        getVal() {
+            return this.name;
+        }
+    }
+
+    const obj1 = Object.create(a);
+    const obj2 = create(a);
+    obj1.aKey = 888;
+
+    expect(obj1.__proto__.aKey).toBe(obj2.__proto__.aKey);
 })

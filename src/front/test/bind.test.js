@@ -1,7 +1,9 @@
 const {
     bind,
     apply,
-    call
+    call,
+    newObj,
+    instanceOf
 } = require('../bind')
 
 
@@ -61,3 +63,32 @@ test('apply', done => {
 
     done()
 });
+
+test("测试自己实现的new", () => {
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.getInfo = function () {
+        return this.name + this.age;
+    }
+    const person = new Person('hello', 18);
+    const person1 = newObj(Person, 'hello', 18);
+
+    expect(person1.name).toEqual(person.name)
+    expect(person1.age).toBe(person.age)
+    expect(person1.getInfo()).toEqual(person.getInfo())
+
+})
+
+test("测试实现的instanceOf", () => {
+    const obj = {};
+    expect(instanceOf(obj, Object)).toBe(obj instanceof Object)
+    const arr = []
+    expect(instanceOf(arr, Array)).toBe(arr instanceof Array)
+    expect(instanceOf(arr, Object)).toBe(arr instanceof Object)
+    const reg = new RegExp();
+    expect(instanceOf(reg, RegExp)).toBe(reg instanceof RegExp)
+    expect(instanceOf(reg, Object)).toBe(reg instanceof Object)
+
+})

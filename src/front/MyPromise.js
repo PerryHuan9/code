@@ -121,38 +121,4 @@ class MyPromise {
     }
 }
 
-new MyPromise(function (resolve) {
-        console.log("promise1");
-        resolve();
-    })
-    .then(function () {
-        console.log("promise2");
-    })
-    .then(function () {
-        console.log("promise3");
-    });
-
-new MyPromise(function (resolve) {
-        console.log("promise-1");
-        resolve();
-    })
-    .then(function () {
-        console.log("promise-2");
-    })
-    .then(function () {
-        console.log("promise-3");
-    });
-
-new MyPromise(function (resolve) {
-        console.log("promise--1");
-        resolve();
-    })
-    .then(function () {
-        console.log("promise--2");
-    })
-    .then(function () {
-        console.log("promise--3");
-    });
-
-
-// module.exports = MyPromise
+module.exports = MyPromise

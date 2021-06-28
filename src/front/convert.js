@@ -11,7 +11,7 @@ function convert(num, scale = 10) {
     }
     let res = ''
     for (const val of stack) {
-        res = val + res;
+        res = numStr[val] + res;
     }
     return res;
 }

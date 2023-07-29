@@ -125,22 +125,22 @@ class MyPromise {
 module.exports = MyPromise
 
 
-const promise = new MyPromise((resolve) => {
-    resolve(12);
-})
+// const promise = new MyPromise((resolve) => {
+//     resolve(12);
+// })
 
-promise.then(() => {
-    console.log('单元')
-}).then(() => {
-    console.log('hell')
-})
+// promise.then(() => {
+//     console.log('单元')
+// }).then(() => {
+//     console.log('hell')
+// })
 
-new MyPromise((resolve) => resolve()).then(() => {
-    console.log('你好')
-}).finally(() => {
-    console.log('finally')
-}).then(() => {
-    console.log('123123')
-}).then(() => {
-    console.log('6666')
-})
+// new MyPromise((resolve) => resolve()).then(() => {
+//     console.log('你好')
+// }).finally(() => {
+//     console.log('finally')
+// }).then(() => {
+//     console.log('123123')
+// }).then(() => {
+//     console.log('6666')
+// })

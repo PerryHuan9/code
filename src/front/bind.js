@@ -1,16 +1,16 @@
-function bind(func, thisArg) {
+function bind(fn, thisArg) {
     const key = Symbol();
-    thisArg[key] = func;
-    return (...args) => thisArg[key](...args)
+    thisArg[key] = fn
+    return (...args) => thisArg[key](...args);  
 }
 
-function apply(func, thisArg, argArray) {
-    if (!thisArg) thisArg = {};
+function apply(fn, thisArg, args) {
+    if (thisArg === null || typeof thisArg !== 'object') thisArg = {}
     const key = Symbol();
-    thisArg[key] = func;
-    const result = thisArg[key](...argArray)
-    delete(thisArg, key)
-    return result
+    thisArg[key] = fn;
+    const val = thisArg[key](...args);
+    delete thisArg[key];
+    return val;
 }
 
 function call(func, thisArg, ...argArray) {
@@ -23,10 +23,12 @@ function call(func, thisArg, ...argArray) {
  * @param  {...any} args 
  */
 function newObj(constructor, ...args) {
-    const obj = {};
+   const obj = {};
+    
     Object.setPrototypeOf(obj, constructor.prototype);
-    const res = constructor.apply(obj, args);
-    return typeof res === 'object' ? res : obj;
+
+   const res = constructor.apply(obj, args);
+   return res !== null && typeof res === 'object' ? res : obj;
 
 }
 
@@ -37,16 +39,14 @@ function newObj(constructor, ...args) {
  * @param {*} constructor 
  */
 function instanceOf(obj, constructor) {
-    if (!constructor || !obj) return false;
-    let prototype = Object.getPrototypeOf(obj);
-    const constructorProto = constructor.prototype;
-    while (true) {
-        if (prototype === constructorProto) return true;
-        if (!prototype) return false;
-        prototype = Object.getPrototypeOf(prototype);
+    let proto = Object.getPrototypeOf(obj);
+    const target = constructor.prototype; 
+    while(proto) {
+        if (target === proto) return true;
+        proto = Object.getPrototypeOf(proto);
     }
+    return false;
 }
-
 
 module.exports = {
     bind,

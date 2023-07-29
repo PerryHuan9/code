@@ -2,6 +2,7 @@ const {
     clone,
     deepClone,
     create,
+    isType
 
 } = require('../clone')
 
@@ -73,3 +74,18 @@ test("测试create", () => {
 
     expect(obj1.__proto__.aKey).toBe(obj2.__proto__.aKey);
 })
+
+test('测试isType', () => {
+    const isFunction = isType('Function');
+    const isArray = isType('Array');
+    const isNumber = isType('Number');
+    
+    expect(isFunction(12)).toEqual(false);
+    expect(isFunction(() => {})).toEqual(true);
+    expect(isArray({})).toEqual(false);
+    expect(isArray([])).toEqual(true);
+    expect(isNumber(12)).toEqual(true);
+    expect(isNumber(true)).toEqual(false);
+
+})
+

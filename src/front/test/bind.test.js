@@ -75,6 +75,8 @@ test("测试自己实现的new", () => {
     const person = new Person('hello', 18);
     const person1 = newObj(Person, 'hello', 18);
 
+    expect(Object.getPrototypeOf(person1)).toEqual(Object.getPrototypeOf(person1))
+    expect(person.constructor).toEqual(person1.constructor)
     expect(person1.name).toEqual(person.name)
     expect(person1.age).toBe(person.age)
     expect(person1.getInfo()).toEqual(person.getInfo())

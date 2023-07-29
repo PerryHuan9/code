@@ -35,24 +35,11 @@ function isType(type) {
     return (val) => Object.prototype.toString.call(val) === `[object ${type}]`
 }
 
-const isFunction = isType('Function');
-const isArray = isType('Array');
-const isNumber = isType('Number');
-
-console.log(isFunction(12)) // false
-console.log(isFunction(() => {})) // true
-console.log(isArray({})) // false
-console.log(isArray([])) // true
-console.log(isNumber(12)) // true
-console.log(isNumber(true)) // false
-
 
 function trim(str) {
     return str.replace(/^\s+|\s+$/, '');
 }
 
-// console.log('   1231231  234234   ')
-// console.log(trim('   1231231  234234   '))
 
 
 /**
@@ -60,10 +47,9 @@ function trim(str) {
  * @param {*} proto 
  */
 function create(proto) {
-    function Fn() {}
-    Fn.prototype = proto;
-    Fn.constructor = Fn;
-    return new Fn();
+    const obj = {}
+    Object.setPrototypeOf(obj, proto);
+    return obj;
 }
 
 
@@ -71,4 +57,6 @@ module.exports = {
     clone,
     deepClone,
     create,
+    isType,
+    trim
 }

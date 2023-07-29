@@ -16,8 +16,6 @@ function convert(num, scale = 10) {
     return res;
 }
 
-function thousandth2(str) {}
-
 function thousandth(str) {
     return str.replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,');
 }

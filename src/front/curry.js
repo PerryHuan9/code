@@ -4,15 +4,16 @@
  * @param {*} args 
  */
 function curry(fn) {
-    const args = arguments[1] || []
-    return function () {
-        const newArgs = args.concat([...arguments])
-        if (fn.length > newArgs.length) {
-            return curry.call(this, fn, newArgs)
-        } else {
-            return fn.apply(this, newArgs);
+    const args = arguments[1] || [];
+
+    return function() {
+        const newArgs = args.concat([...arguments]);
+        if (newArgs.length === fn.length) {
+            return fn(...newArgs);
         }
+        return curry(fn, newArgs);
     }
+   
 }
 
 

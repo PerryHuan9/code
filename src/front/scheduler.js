@@ -1,22 +1,8 @@
 class Scheduler {
   constructor(num = 3) {
-    this.limitNum = num;
-    this.tasks = [];
-    this.runNum = 0;
-  }
-
-  async run() {
-    if (!this.tasks.length) {
-      this.runNum = 0;
-      return;
-    }
-    const num = this.limitNum - this.runNum;
-    const runTasks = this.tasks.splice(0, num);
-    this.runNum += runTasks.length;
-    runTasks.forEach((task) => {
-      task();
-    });
-
+    this._limitNum = num;
+    this._tasks = [];
+    this._runNum = 0;
   }
 
   add(fn, ...args) {
@@ -25,20 +11,24 @@ class Scheduler {
         try {
           const res = await fn(...args);
           resolve(res);
-        } catch (e) {
-          reject(e);
+        } catch (err) {
+          reject(err);
         } finally {
-          if (this.runNum > 0) {
-            this.runNum--;
-          }
-          this.run();
+          this._runNum--;
+          this._run();
         }
       };
-      this.tasks.push(task);
-      if (this.runNum < this.limitNum) {
-        this.run();
-      }
+      this._tasks.push(task);
+      this._run();
     });
+  }
+
+  _run() {
+    if (!this._tasks.length || this._runNum >= this._limitNum) return;
+    const allowRunCount = this._limitNum - this._runNum;
+    const runTasks = this._tasks.splice(0, allowRunCount);
+    this._runNum += runTasks.length;
+    runTasks.forEach((task) => task());
   }
 }
 

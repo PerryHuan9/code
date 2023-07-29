@@ -1,5 +1,5 @@
-const MyPromise = require('../MyPromise');
-// const MyPromise = Promise;
+const MyPromise = require('../promise');
+// const MyPromise = require('../MyPromise');
 
 test('错误穿透', (done) => {
   const errorVal = '错误';

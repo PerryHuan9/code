@@ -1,21 +1,19 @@
 /**
  * 返回一个柯里化的函数
- * @param {*} fn 
- * @param {*} args 
+ * @param {*} fn
+ * @param {*} args
  */
 function curry(fn) {
-    const args = arguments[1] || [];
-
-    return function() {
-        const newArgs = args.concat([...arguments]);
-        if (newArgs.length === fn.length) {
-            return fn(...newArgs);
-        }
-        return curry(fn, newArgs);
+  const preArgs = arguments[1] || [];
+  return function (...args) {
+    const allArgs = preArgs.concat(args);
+    if (allArgs.length >= fn.length) {
+      return fn(...allArgs);
+    } else  {
+      return curry(fn, allArgs)
     }
-   
+  }
 }
-
 
 module.exports = {
     curry

@@ -1,6 +1,6 @@
 /**
  * 浅克隆
- * @param {*} val 
+ * @param {*} val
  */
 function clone(val) {
     if (typeof val !== 'object') return val;
@@ -13,26 +13,24 @@ function clone(val) {
  * 深克隆
  *  1. Date 和 RegExp需要特殊处理
  *  2. 循环引用也需要复制过去
- * 
- * @param {*} val 
+ *
+ * @param {*} val
  */
 function deepClone(val, map = new WeakMap()) {
-    if (val instanceof RegExp) return new RegExp(val);
-    if (val instanceof Date) return new Date(val);
-    if (val === null || typeof val !== 'object') return val;
-    if (map.has(val)) return map.get(val);
-    const newObj = new val.constructor();
-    map.set(val, newObj);
-    for (const key in val) {
-        if (val.hasOwnProperty(key)) {
-            newObj[key] = deepClone(val[key], map)
-        }
-    }
-    return newObj;
+  if (val === null || typeof val !== "object") return val;
+  if (val instanceof RegExp) return new RegExp(val);
+  if (val instanceof Date) return new Date(val);
+  if (map.has(val)) return map.get(val);
+  const newVal = new val.constructor();
+  map.set(val, newVal);
+  for (const key in val) {
+    newVal[key] = deepClone(val[key], map);
+  }
+  return newVal;
 }
 
 function isType(type) {
-    return (val) => Object.prototype.toString.call(val) === `[object ${type}]`
+  return (val) => Object.prototype.toString.call(val) === `[object ${type}]`
 }
 
 
@@ -44,10 +42,10 @@ function trim(str) {
 
 /**
  * 实现obj.create
- * @param {*} proto 
+ * @param {*} proto
  */
 function create(proto) {
-    const obj = {}
+    const obj = {};
     Object.setPrototypeOf(obj, proto);
     return obj;
 }

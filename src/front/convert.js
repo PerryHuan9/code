@@ -2,28 +2,23 @@
  * 进制转换
  */
 function convert(num, scale = 10) {
-    if (scale === 10) return num.toString();
-    const numStr = '0123456789ABCDEF';
-    const stack = [];
-    while (num) {
-        stack.push(num % scale)
-        num = (num / scale) | 0
-    }
-    let res = ''
-    for (const val of stack) {
-        res = numStr[val] + res;
-    }
-    return res;
+  if (scale <2 || scale > 16) throw new Error('scale must between 2 and 16');
+  const str = '0123456789ABCDEF';
+  let res = '';
+  while(num) {
+    res = str[num % scale] + res;
+    num = Math.floor(num/scale);
+  }
+  return res;
 }
 
 function thousandth(str) {
-    return str.replace(/\d(?=(?:\d{3})+(?:\.\d+|$))/g, '$&,');
+  return str.replace(/\d(?=(?:\d{3})+(?:\.|$))/g, '$&,');
 }
 
-console.log(thousandth('1123123123123123.3453'))
-// 1,123,123,123,123,123.3,453
 
 
 module.exports = {
-    convert
+    convert,
+    thousandth,
 }

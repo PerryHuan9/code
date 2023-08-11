@@ -1,42 +1,42 @@
 class EventBus {
-    constructor() {
-        this.eventMap = new Map();
-    }
 
-    on(name, callback) {
-        if (this.eventMap.has(name)) {
-            this.eventMap.get(name).add(callback)
-        } else {
-            this.eventMap.set(name, new Set([callback]))
-        }
-    }
+  constructor() {
+    this.eventMap = new Map();
+  }
 
-    emit(name, ...args) {
-        const callbackSet = this.eventMap.get(name);
-        if (callbackSet) {
-            for (const callback of callbackSet) {
-                callback(...args);
-            }
-        }
+  on(name, fn) {
+    if (!this.eventMap.has(name)) {
+      this.eventMap.set(name, new Set());
     }
+    const fnSet = this.eventMap.get(name);
+    if(!fnSet.has(fn)) {
+      fnSet.add(fn);
+    }
+  }
 
-    off(name, callback) {
-        const callbackSet = this.eventMap.get(name);
-        if (!callbackSet) return false;
-        if (callback) {
-            callbackSet.delete(callback)
-        } else {
-            this.eventMap.delete(name)
-        }
+  off(name, fn) {
+    const fnSet = this.eventMap.get(name);
+    if (fnSet?.has(fn)) {
+      fnSet.delete(fn);
     }
+  }
 
-    once(name, callback) {
-        const handle = (...args) => {
-            callback(...args);
-            this.off(name, handle)
-        }
-        this.on(name, handle);
+  once(name, fn) {
+    const handle = (...args) => {
+      fn(...args);
+      this.off(name,handle);
     }
+    this.on(name, handle);
+  }
+
+
+  emit(name, ...args) {
+    const fnSet = this.eventMap.get(name);
+    if (!fnSet) return ;
+    for (const fn of fnSet) {
+      fn(...args);
+    }
+  }
 }
 
 module.exports = EventBus;

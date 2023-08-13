@@ -15,6 +15,48 @@ function curry(fn) {
   }
 }
 
+const __ = Symbol('PLACEHOLDER');
+
+function _getNewArg(allArgs, addArgs) {
+  let start = 0;
+  let len = allArgs.length;
+  addArgs.forEach(arg => {
+    let i;
+    for (i=start;i<len;i++) {
+      if (allArgs[i] === __) {
+        if (arg !== __) {
+          allArgs[i] = arg;
+        }
+        start =i+1;
+        break;
+      }
+    }
+    if (i === len) {
+      allArgs.push(arg);
+    }
+  });
+  return allArgs;
+}
+
+function placeholderCurry(fn, ...bound) {
+  const args = bound;
+  return function (...newArgs) {
+    const allArgs = _getNewArg([...args], newArgs);
+    if (allArgs.filter((item) => item !== __).length === fn.length) {
+      return fn(...allArgs);
+    }
+    return placeholderCurry(fn, ...allArgs);
+  };
+}
+
+placeholderCurry.__ = __;
+
+
+
+
+
+
 module.exports = {
-    curry
+    curry,
+    placeholderCurry
 }

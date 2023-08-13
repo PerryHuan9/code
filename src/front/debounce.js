@@ -1,8 +1,8 @@
 /**
  * 实现reduce
- * @param {*} arr 
- * @param {*} callback 
- * @param {*} initialVal 
+ * @param {*} arr
+ * @param {*} callback
+ * @param {*} initialVal
  */
 function reduce(arr, callback, initialVal) {
     for (let i = 0; i < arr.length; i++) {
@@ -17,10 +17,11 @@ console.log(reduce(arr, (res, val) => res + val, 1))
 
 /**
  * 返回一个已防抖函数
- * 该函数自上一次调用后，间隔timeout时间才会调用 func 
- * @param {*} func 
- * @param {*} timeout 
+ * 该函数自上一次调用后，间隔timeout时间才会调用 func
+ * @param {*} func
+ * @param {*} timeout
  */
+// 防抖
 function debounce(func, timeout) {
     let handler;
     return function (...props) {
@@ -45,9 +46,11 @@ setTimeout(() => {
 /**
  * 返回一个已节流函数
  * 改函数在 time 时间内只会调用 func 一次
- * @param {*} func 
- * @param {*} time 
+ * @param {*} func
+ * @param {*} time
  */
+
+// 节流
 function throttle(func, time) {
     let canRun = true;
     return (...params) => {
